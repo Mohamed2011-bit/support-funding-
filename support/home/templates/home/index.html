@@ -1,0 +1,103 @@
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support</title>
+
+    {% block style %} {% endblock %} {% block css %} {% endblock %}
+
+    <link rel="stylesheet" href="{% static 'home/css/index.css' %}">
+
+    <link rel="stylesheet" href="{% static 'home/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'home/css/all.min.css' %}">
+
+    <script src="{% static 'home/js/jquery-3.4.1.min.js'%}"></script>
+    <script src="{% static 'home/js/popper.min.js'%}"></script>
+    <script src="{% static 'home/js/bootstrap.min.js'%}"></script>
+
+</head>
+
+<body>
+    <!-- Start of NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'home'%}">SUPPORT</a>
+            <button class="navbar-toggler " type="button " data-toggle="collapse " data-target="#navbarSupportedContent " aria-controls="navbarSupportedContent " aria-expanded="false " aria-label="Toggle navigation ">
+          <span class="navbar-toggler-icon "></span>
+        </button>
+
+            <div class="collapse navbar-collapse " id="navbarSupportedContent ">
+                <ul class="navbar-nav ml-auto ">
+                    <li class="nav-item active ">
+                        <a class="nav-link " href="{% url 'home'%} ">Home <span class="sr-only ">(current)</span></a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="{% url 'projects'%} ">projects</a>
+                    </li>
+
+                    <li class="nav-item ">
+                        <a class="nav-link " href="{% url 'profile' request.user.id %} ">My Profile</a>
+                    </li>
+                    {% if request.user.is_authenticated %}
+                    <li class="nav-item ">
+                        <a class="nav-link " href="{% url 'logout' %} ">Logout</a>
+                    </li>
+                    {% endif %} {% if not request.user.is_authenticated %}
+
+                    <li class="nav-item ">
+                        <a class="nav-link " href="{% url 'login' %} ">Login</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link " href="{% url 'signup' %} ">Sign Up</a>
+                    </li>
+                    {% endif %}
+
+
+
+                </ul>
+                <form class="form-inline my-2 my-lg-0 " action="{% url 'search'%} " method="GET ">
+                    {% csrf_token %}
+                    <input class="form-control mr-sm-2 " type="search " placeholder="Search " aria-label="Search " name="keyword" value="">
+                    <button class=" btn btn-outline-success my-2 my-sm-0 " type="submit ">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <br><br><br>
+    <!-- End OF NAVBAR -->
+    {% block content %} {% if messages %} {% for message in messages %}
+    <div class="alert alert-{{ message.tags}}">
+        {{ message }}
+    </div>
+    {% endfor %} {% endif %} {% endblock %}
+
+
+
+
+    <!-- <Start of FOOTER > -->
+    <br><br><br>
+    <section id="footer" class="fixed-bottom">
+        <div class="container">
+            <div class="row">
+                <!-- <div class="col-6">
+                    <div class="followUs">
+                        <i class="fab fa-facebook-f "></i>
+                        <i class="fab fa-twitter "></i>
+                        <i class="fab fa-linkedin-in "></i>
+                    </div>
+                </div> -->
+                <div class="col-12 ">
+                    <div class="copy ">
+                        <span class="lang " Key="COPYRIGHT ">Copyright &copy; 2020 </span><a href="# " target="_blanck ">&nbsp; Crowd Funding team</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End OF NAVBAR -->
+</body>
+
+</html>
